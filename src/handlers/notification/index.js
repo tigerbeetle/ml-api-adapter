@@ -297,6 +297,7 @@ const processMessage = async (msg, span) => {
   }
 
   const getEndpointFn = async (fsp, requestType, proxy) => {
+    console.log('getEndpointFn', fsp, requestType)
     let endpointType
     switch (requestType) {
       case REQUEST_TYPE.POST:
@@ -355,6 +356,9 @@ const processMessage = async (msg, span) => {
   if ([Action.PREPARE, Action.FX_PREPARE].includes(action)) {
     if (!isSuccess) {
       const callbackURLTo = await getEndpointFn(destination, REQUEST_TYPE.PUT_ERROR)
+      
+      console.log('isSucess false callbackURLTo', callbackURLTo, payload)
+
       const endpointTemplate = getEndpointTemplate(REQUEST_TYPE.PUT_ERROR)
       headers = createCallbackHeaders({ dfspId: destination, transferId: id, headers: content.headers, httpMethod: PUT, endpointTemplate }, fromSwitch)
       logger.debug(`Notification::processMessage - Callback.sendRequest({${callbackURLTo}, ${PUT}, ${JSON.stringify(headers)}, ${payload}, ${id}, ${source}, ${destination}) ${hubNameRegex}}`)
@@ -365,6 +369,10 @@ const processMessage = async (msg, span) => {
     }
 
     const { url: callbackURLTo, proxyId } = await getEndpointFn(destination, REQUEST_TYPE.POST, true)
+
+    console.log('isSucess true callbackURLTo', callbackURLTo)
+
+
     const endpointTemplate = getEndpointTemplate(REQUEST_TYPE.POST)
     headers = createCallbackHeaders({ headers: content.headers, httpMethod: POST, endpointTemplate })
     logger.debug(`Notification::processMessage - Callback.sendRequest({ ${callbackURLTo}, ${POST}, ${JSON.stringify(content.headers)}, ${payload}, ${id}, ${source}, ${destination} ${hubNameRegex} })`)
