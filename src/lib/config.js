@@ -1,5 +1,7 @@
 // const RC = require('parse-strings-in-object')(require('rc')('MLAPI', require('../../config/default.json')))
-const RC = require('rc')('MLAPI', require('../../config/default.json'))
+// const RC = require('rc')('MLAPI', require('../../config/default.json'))
+const PATH_TO_CONFIG_FILE = process.env.PATH_TO_CONFIG_FILE || '../../config/default.local.json'
+const RC = require('rc')('MLAPI', require(PATH_TO_CONFIG_FILE))
 const fs = require('fs')
 
 const getFileContent = (path) => {

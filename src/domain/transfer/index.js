@@ -64,6 +64,7 @@ const prepare = async (headers, dataUri, payload, span, context = {}, isIsoMode)
     messageProtocol = await span.injectContextToMessage(messageProtocol)
     const { topicConfig, kafkaConfig } = dto.producerConfigDto(Action.TRANSFER, Action.PREPARE, logPrefix)
 
+    console.log("LD produceMessage. topicConfig", topicConfig)
     await Kafka.Producer.produceMessage(messageProtocol, topicConfig, kafkaConfig)
     return true
   } catch (err) {

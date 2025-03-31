@@ -297,7 +297,6 @@ const processMessage = async (msg, span) => {
   }
 
   const getEndpointFn = async (fsp, requestType, proxy) => {
-    console.log('getEndpointFn', fsp, requestType)
     let endpointType
     switch (requestType) {
       case REQUEST_TYPE.POST:
