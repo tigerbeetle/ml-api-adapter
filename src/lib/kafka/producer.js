@@ -36,18 +36,45 @@ const Config = require('../config')
 const getProducerConfigs = () => {
   const configs = []
   configs.push({
-    topicConfig: KafkaUtil.createGeneralTopicConf(Config.KAFKA_CONFIG.TOPIC_TEMPLATES.GENERAL_TOPIC_TEMPLATE.TEMPLATE, generalEnum.Events.Event.Action.TRANSFER, generalEnum.Events.Event.Action.PREPARE),
-    kafkaConfig: KafkaUtil.getKafkaConfig(Config.KAFKA_CONFIG, generalEnum.Kafka.Config.PRODUCER, generalEnum.Events.Event.Action.TRANSFER.toUpperCase(), generalEnum.Events.Event.Action.PREPARE.toUpperCase())
+    topicConfig: KafkaUtil.createGeneralTopicConf(
+      Config.KAFKA_CONFIG.TOPIC_TEMPLATES.GENERAL_TOPIC_TEMPLATE.TEMPLATE, 
+      generalEnum.Events.Event.Action.TRANSFER, 
+      generalEnum.Events.Event.Action.PREPARE
+    ),
+    kafkaConfig: KafkaUtil.getKafkaConfig(
+      Config.KAFKA_CONFIG, 
+      generalEnum.Kafka.Config.PRODUCER, 
+      generalEnum.Events.Event.Action.TRANSFER.toUpperCase(), 
+      generalEnum.Events.Event.Action.PREPARE.toUpperCase()
+    )
   })
 
   configs.push({
-    topicConfig: KafkaUtil.createGeneralTopicConf(Config.KAFKA_CONFIG.TOPIC_TEMPLATES.GENERAL_TOPIC_TEMPLATE.TEMPLATE, generalEnum.Events.Event.Action.TRANSFER, generalEnum.Events.Event.Action.FULFIL),
-    kafkaConfig: KafkaUtil.getKafkaConfig(Config.KAFKA_CONFIG, generalEnum.Kafka.Config.PRODUCER, generalEnum.Events.Event.Action.TRANSFER.toUpperCase(), generalEnum.Events.Event.Action.FULFIL.toUpperCase())
+    topicConfig: KafkaUtil.createGeneralTopicConf(
+      Config.KAFKA_CONFIG.TOPIC_TEMPLATES.GENERAL_TOPIC_TEMPLATE.TEMPLATE,
+      generalEnum.Events.Event.Action.TRANSFER,
+      generalEnum.Events.Event.Action.FULFIL
+    ),
+    kafkaConfig: KafkaUtil.getKafkaConfig(
+      Config.KAFKA_CONFIG, 
+      generalEnum.Kafka.Config.PRODUCER, 
+      generalEnum.Events.Event.Action.TRANSFER.toUpperCase(), 
+      generalEnum.Events.Event.Action.FULFIL.toUpperCase()
+    )
   })
 
   configs.push({
-    topicConfig: KafkaUtil.createGeneralTopicConf(Config.KAFKA_CONFIG.TOPIC_TEMPLATES.GENERAL_TOPIC_TEMPLATE.TEMPLATE, generalEnum.Events.Event.Action.TRANSFER, generalEnum.Events.Event.Action.GET),
-    kafkaConfig: KafkaUtil.getKafkaConfig(Config.KAFKA_CONFIG, generalEnum.Kafka.Config.PRODUCER, generalEnum.Events.Event.Action.TRANSFER.toUpperCase(), generalEnum.Events.Event.Action.GET.toUpperCase())
+    topicConfig: KafkaUtil.createGeneralTopicConf(
+      Config.KAFKA_CONFIG.TOPIC_TEMPLATES.GENERAL_TOPIC_TEMPLATE.TEMPLATE, 
+      generalEnum.Events.Event.Action.TRANSFER, 
+      generalEnum.Events.Event.Action.GET
+    ),
+    kafkaConfig: KafkaUtil.getKafkaConfig(
+      Config.KAFKA_CONFIG, 
+      generalEnum.Kafka.Config.PRODUCER, 
+      generalEnum.Events.Event.Action.TRANSFER.toUpperCase(), 
+      generalEnum.Events.Event.Action.GET.toUpperCase()
+    )
   })
   return configs
 }
