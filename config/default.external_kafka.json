@@ -111,7 +111,7 @@
               "messageCharset": "utf8",
               "messageAsJSON": true,
               "sync": true,
-              "consumeTimeout": 10
+              "consumeTimeout": 5
             },
             "rdkafkaConf": {
               "client.id": "ml-con-notification-event",
