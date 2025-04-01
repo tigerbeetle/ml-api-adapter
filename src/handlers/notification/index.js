@@ -169,6 +169,7 @@ const consumeMessage = async (error, message) => {
 
     const isBatch = Array.isArray(message)
     message = Array.isArray(message) ? message : [message]
+    console.log(`LD: notification handler consumeMessage, consuming: ${message.length} from kafka`)
     let combinedResult = true
 
     const processOneMessage = async (msg) => {
