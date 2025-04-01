@@ -111,7 +111,7 @@
               "messageCharset": "utf8",
               "messageAsJSON": true,
               "sync": true,
-              "consumeTimeout": 1000
+              "consumeTimeout": 10
             },
             "rdkafkaConf": {
               "client.id": "ml-con-notification-event",
@@ -141,8 +141,7 @@
               "dr_cb": true,
               "socket.keepalive.enable": true,
               "queue.buffering.max.messages": 10000000,
-              "batch.num.messages": 500,
-              "linger.ms": 1
+              "linger.ms": 10
             },
             "topicConf": {
               "request.required.acks": "1",
@@ -162,8 +161,7 @@
               "dr_cb": true,
               "socket.keepalive.enable": true,
               "queue.buffering.max.messages": 10000000,
-              "batch.num.messages": 500,
-              "linger.ms": 1
+              "linger.ms": 10
             },
             "topicConf": {
               "request.required.acks": "1",
