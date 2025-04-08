@@ -370,9 +370,6 @@ const processMessage = async (msg, span) => {
 
     const { url: callbackURLTo, proxyId } = await getEndpointFn(destination, REQUEST_TYPE.POST, true)
 
-    console.log('isSucess true callbackURLTo', callbackURLTo)
-
-
     const endpointTemplate = getEndpointTemplate(REQUEST_TYPE.POST)
     headers = createCallbackHeaders({ headers: content.headers, httpMethod: POST, endpointTemplate })
     logger.debug(`Notification::processMessage - Callback.sendRequest({ ${callbackURLTo}, ${POST}, ${JSON.stringify(content.headers)}, ${payload}, ${id}, ${source}, ${destination} ${hubNameRegex} })`)
