@@ -105,7 +105,7 @@
           "config": {
             "options": {
               "mode": 2,
-              "batchSize": 500,
+              "batchSize": 100,
               "pollFrequency": 10,
               "recursiveTimeout": 1,
               "messageCharset": "utf8",
