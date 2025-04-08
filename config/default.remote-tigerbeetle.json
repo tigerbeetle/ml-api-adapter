@@ -107,11 +107,11 @@
               "mode": 2,
               "batchSize": 500,
               "pollFrequency": 10,
-              "recursiveTimeout": 5,
+              "recursiveTimeout": 3,
               "messageCharset": "utf8",
               "messageAsJSON": true,
               "sync": true,
-              "consumeTimeout": 5
+              "consumeTimeout": 3
             },
             "rdkafkaConf": {
               "client.id": "ml-con-notification-event",
