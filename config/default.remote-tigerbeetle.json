@@ -142,7 +142,8 @@
               "socket.keepalive.enable": true,
               "queue.buffering.max.messages": 10000000,
               "batch.num.messages": 8000,
-              "linger.ms": 900000
+              "message.timeout.ms": 900000,
+              "linger.ms": 800000
             },
             "topicConf": {
               "request.required.acks": "1",
@@ -163,7 +164,8 @@
               "socket.keepalive.enable": true,
               "queue.buffering.max.messages": 10000000,
               "batch.num.messages": 8000,
-              "linger.ms": 900000
+              "message.timeout.ms": 900000,
+              "linger.ms": 800000
             },
             "topicConf": {
               "request.required.acks": "1",
