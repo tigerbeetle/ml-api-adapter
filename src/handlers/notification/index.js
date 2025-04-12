@@ -245,6 +245,8 @@ const processMessage = async (msg, span) => {
     ['success', 'action']
   ).startTimer()
 
+  console.log('LD processMessage message is', JSON.stringify(msg))
+
   logger.debug('Notification::processMessage')
 
   if (!msg.value || !msg.value.content || !msg.value.content.headers || !msg.value.content.payload) {

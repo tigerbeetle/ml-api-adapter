@@ -36,11 +36,12 @@ const generalEnum = require('@mojaloop/central-services-shared').Enum
 
 const { logger } = require('../../shared/logger')
 const dto = require('./dto')
-const config = require('../../lib/config')
 const messageBatcher = require('../../handlers/MessageBatcher')
 
-
 const { Action } = generalEnum.Events.Event
+
+
+
 
 /**
  * @module src/domain/transfer
@@ -59,23 +60,6 @@ const { Action } = generalEnum.Events.Event
 * @returns {boolean} Returns true on successful publishing of message to kafka, throws error on failures
 */
 const prepare = async (headers, dataUri, payload, span, context = {}, isIsoMode) => {
-  const logPrefix = `domain::${payload.transferId ? 'transfer' : 'fxTransfer'}::prepare`
-  logger.debug(`${logPrefix}::start`, { headers, payload })
-
-  try {
-    let messageProtocol = dto.prepareMessageDto({ headers, dataUri, payload, logPrefix, context, isIsoMode })
-    messageProtocol = await span.injectContextToMessage(messageProtocol)
-    const { topicConfig, kafkaConfig } = dto.producerConfigDto(Action.TRANSFER, Action.PREPARE, logPrefix)
-
-    await Kafka.Producer.produceMessage(messageProtocol, topicConfig, kafkaConfig)
-    return true
-  } catch (err) {
-    logger.error(`${logPrefix} failed with error:`, err)
-    throw ErrorHandler.Factory.reformatFSPIOPError(err)
-  }
-}
-
-const prepareFast = async (headers, dataUri, payload, span, context = {}, isIsoMode) => {
   const logPrefix = `domain::${payload.transferId ? 'transfer' : 'fxTransfer'}::prepare`
   logger.debug(`${logPrefix}::start`, { headers, payload })
 
@@ -181,6 +165,6 @@ const transferError = async (headers, dataUri, payload, params, span, isFx = fal
 module.exports = {
   fulfil,
   getTransferById,
-  prepare: config.FAST_MODE_ENABLED ? prepareFast : prepare,
+  prepare,
   transferError
 }

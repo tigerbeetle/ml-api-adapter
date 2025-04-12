@@ -90,8 +90,14 @@ const createServer = async (port, api, routes, modules) => {
   await Plugins.registerPlugins(server, api)
   await server.register(modules)
   server.route(routes)
+
+  if (Config.FAST_MODE_ENABLED === true) {
+    Logger.warn(`FAST_MODE_ENABLED=true! Using new batching logic.`)
+  }
+
   await server.start()
   Logger.isDebugEnabled && Logger.debug(`Server running at: ${server.info.uri}`)
+
   return server
 }
 

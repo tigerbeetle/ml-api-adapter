@@ -1,0 +1,83 @@
+{
+  "value": {
+    "from": "dfsp_a",
+    "to": "dfsp_b",
+    "id": "c2654596-5eff-45bf-8f40-b18933da4056",
+    "content": {
+      "uriParams": {
+        "id": "c2654596-5eff-45bf-8f40-b18933da4056"
+      },
+      "headers": {
+        "accept": "application/vnd.interoperability.transfers+json;version=1.1",
+        "content-type": "application/vnd.interoperability.transfers+json;version=1.1",
+        "date": "Sat, 12 Apr 2025 10:12:37 GMT",
+        "fspiop-destination": "dfsp_b",
+        "fspiop-source": "dfsp_a",
+        "traceparent": "00-a7a189a98d74a8de504e0f19f2301453-596119c2af9ef9a8-00",
+        "tracestate": "acmevendor=eyJzcGFuSWQiOiI1OTYxMTljMmFmOWVmOWE4IiwidGltZUFwaVByZXBhcmUiOiIxNzQ0NDUyNzU1MTg3In0=,tx_callback_start_ts=1744452757124",
+        "user-agent": "axios/1.8.3",
+        "content-length": "136",
+        "accept-encoding": "gzip, compress, deflate, br",
+        "host": "localhost:3000",
+        "connection": "close"
+      },
+      "payload": "data:application/vnd.interoperability.transfers+json;version=1.1;base64,eyJ0cmFuc2ZlclN0YXRlIjoiQ09NTUlUVEVEIiwiZnVsZmlsbWVudCI6IlYtSWFsekl6eS16eHkwU3JsWTFLdTJPRTlhUzRLZ0daMFctWnE1X0JlQzAiLCJjb21wbGV0ZWRUaW1lc3RhbXAiOiIyMDI1LTA0LTEyVDEwOjEyOjM3LjEyNFoifQ==",
+      "context": {}
+    },
+    "type": "application/json",
+    "metadata": {
+      "correlationId": "c2654596-5eff-45bf-8f40-b18933da4056",
+      "event": {
+        "type": "notification",
+        "action": "commit",
+        "createdAt": "2025-04-12T10:12:37.133Z",
+        "state": {
+          "status": "success",
+          "code": 0,
+          "description": "action successful"
+        },
+        "id": "34eb4863-32dd-4ec3-883d-f98462cc93d0",
+        "responseTo": "3ad43937-302d-4f05-8669-6c4d3c24d4fb"
+      },
+      "trace": {
+        "service": "cl_transfer_position",
+        "traceId": "a7a189a98d74a8de504e0f19f2301453",
+        "spanId": "09a344ecb95fff86",
+        "sampled": 0,
+        "flags": "00",
+        "parentSpanId": "8f6bd816a42ed9a2",
+        "startTimestamp": "2025-04-12T10:12:38.005Z",
+        "tags": {
+          "tracestate": "acmevendor=eyJzcGFuSWQiOiIwOWEzNDRlY2I5NWZmZjg2IiwidGltZUFwaVByZXBhcmUiOiIxNzQ0NDUyNzU1MTg3IiwidGltZUFwaUZ1bGZpbCI6IjE3NDQ0NTI3NTcxMzMifQ==,tx_callback_start_ts=1744452757124",
+          "transactionType": "transfer",
+          "transactionAction": "fulfil",
+          "source": "dfsp_a",
+          "destination": "dfsp_b",
+          "serviceName": "ml-api-adapter-service",
+          "auditType": "transactionFlow",
+          "contentType": "httpRequest",
+          "operation": "fulfilTransfer",
+          "httpMethod": "put",
+          "httpPath": "/transfers/c2654596-5eff-45bf-8f40-b18933da4056",
+          "transferId": "c2654596-5eff-45bf-8f40-b18933da4056",
+          "transactionId": "c2654596-5eff-45bf-8f40-b18933da4056"
+        },
+        "tracestates": {
+          "acmevendor": {
+            "spanId": "09a344ecb95fff86",
+            "timeApiPrepare": "1744452755187",
+            "timeApiFulfil": "1744452757133"
+          },
+          "tx_callback_start_ts": "1744452757124"
+        }
+      },
+      "protocol.createdAt": 1744452758018
+    }
+  },
+  "size": 2421,
+  "key": null,
+  "topic": "topic-notification-event",
+  "offset": 984,
+  "partition": 0,
+  "timestamp": 1744452758018
+}

@@ -33,6 +33,7 @@
  */
 
 const NotificationHandler = require('./notification')
+const NotificationBatchHandler = require('./notificationBatch')
 
 /**
  * @function RegisterAllHandlers
@@ -43,7 +44,12 @@ const NotificationHandler = require('./notification')
  * @returns {boolean} - Returns a boolean: true if successful, or throws and error if failed
  */
 const registerAllHandlers = async ({ payloadCache } = {}) => {
-  return NotificationHandler.startConsumer({ payloadCache })
+  await Promise.all([
+    NotificationHandler.startConsumer({ payloadCache }),
+    NotificationBatchHandler.registerHandlerNotifications(),
+  ])
+
+  return 
 }
 
 module.exports = {

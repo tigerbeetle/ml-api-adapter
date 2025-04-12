@@ -10,6 +10,19 @@ const getFileContent = (path) => {
   return fs.readFileSync(path)
 }
 
+
+const stringToBool = (input) => {
+  const lowerStr = input.toLowerCase()
+  if (lowerStr === 'false') {
+    return false
+  }
+  if (lowerStr === 'true') {
+    return true
+  }
+  throw new Error(`stringToBool, invalid input: ${input}`)
+
+}
+
 const DEFAULT_PROTOCOL_VERSION = {
   CONTENT: {
     DEFAULT: '1.1',
@@ -67,6 +80,7 @@ const getProtocolVersions = (defaultProtocolVersions, overrideProtocolVersions) 
 
 // Set config object to be returned
 const config = {
+  FAST_MODE_ENABLED: stringToBool(RC.FAST_MODE_ENABLED),
   API_TYPE: RC.API_TYPE, // 'fspiop' or 'iso20022'
   IS_ISO_MODE: RC.API_TYPE === 'iso20022',
   PROXY: RC.PROXY_CACHE,

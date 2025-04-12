@@ -1,0 +1,84 @@
+{
+  "value": {
+    "from": "dfsp_b",
+    "to": "dfsp_a",
+    "id": "c2654596-5eff-45bf-8f40-b18933da4056",
+    "content": {
+      "uriParams": {
+        "id": "c2654596-5eff-45bf-8f40-b18933da4056"
+      },
+      "headers": {
+        "accept": "application/vnd.interoperability.transfers+json;version=1.1",
+        "content-type": "application/vnd.interoperability.transfers+json;version=1.1",
+        "date": "Sat, 12 Apr 2025 10:12:35 GMT",
+        "fspiop-destination": "dfsp_a",
+        "fspiop-source": "dfsp_b",
+        "host": "ml-api-adapter.local",
+        "user-agent": "axios/1.8.3",
+        "content-length": "1178",
+        "accept-encoding": "gzip, compress, deflate, br",
+        "connection": "close"
+      },
+      "payload": "data:application/vnd.interoperability.transfers+json;version=1.1;base64,eyJ0cmFuc2ZlcklkIjoiYzI2NTQ1OTYtNWVmZi00NWJmLThmNDAtYjE4OTMzZGE0MDU2IiwicGF5ZWVGc3AiOiJkZnNwX2EiLCJwYXllckZzcCI6ImRmc3BfYiIsImFtb3VudCI6eyJhbW91bnQiOiIxIiwiY3VycmVuY3kiOiJVU0QifSwiaWxwUGFja2V0IjoiRElJQ3RnQUFBQUFBRDBKQU1qQXlOREV5TURVeE5qQTRNRE01TURjWWpGM25GeWlHU2FlZGVpV2xPXzg3SENuSm9mXzg2S3JqMGxPOEtqeW5JQXBuTG0xdmFtRnNiMjl3Z2dKdlpYbEtlR1JYT1RCYVZXeHJTV3B2YVUxRVJrdFNWVXBVVG1wc1YxTjZXa0pTVlVVMFZrVmtRbE5yVlhwWGEwVTFVbFZuYVV4RFNqQmpiVVoxWXpKR2FtUkhiSFppYTJ4clNXcHZhVTFFUmt0U1ZVcFVUbXBzVjFONldrSlNWVVUwVmtWa1FsTnJWWHBYYTBVMVVsVnZhVXhEU2pCamJVWjFZekpHYW1SSGJIWmliRkkxWTBkVmFVOXVjMmxqTWs1c1ltMUdlV0ZYT0dsUGFVcFZWV3RHVDFVd1drWlZhVWx6U1cxc2RXRllVbkJaV0ZKMlkybEpOa2xzUWtKWFZWWlRTV2wzYVdGWE5YQmtSMnhvWkVjNWVWWkliSGRhVTBrMlNXdEtWbFV3YkU5U1ZrNVVTVzR3YzBsdVFtaGxWMVpzU1dwd04wbHVRbWhqYmxJMVUxZFNTbUp0V25aSmFuQTNTVzVDYUdOdVVqVlRWMUpWWlZoQ2JFbHFiMmxVVms1S1ZUQlNUMGxwZDJsalIwWjVaRWhzU2xwSFZuVmtSMnh0WVZkV2VVbHFiMmxOYW1NelRWUk5ORTFFVFRWTlZFbHBURU5LYldNelFrcGFRMGsyU1c1Q2FHVlhWbXhhYms1M1NXNHhPVXhEU25kWldHeHNZMmxKTm1WNVNuZFpXRW93WlZWc2ExTlhOVzFpZVVrMlpYbEtkMWxZU2pCbFZXeHJWa2hzZDFwVFNUWkphekZVVTFaT1JWUnBTWE5KYmtKb1kyNVNOVk5YVW14aWJsSndXbTFzYkdOcFNUWkphbEV3VFZSSmVrNUVWVEpPZW1jMVNXbDNhVnB1VG5kVFYxRnBUMmxLTUZwWVRqQmhWelZ1WkVjNWRtSkhkSEJrUjFKdFl6TkJhV1pZTUhOSmJWWTBZMGRzZVZsWVVuQmlNalJwVDJsSmVVMUVTVEJNVkVWNVRGUkJNVlpFUlRKUGFrRTBUMnBCZWt4cWEzZE9NVzlwVEVOS2FHSlhPVEZpYmxGcFQyNXphVmxYTVhaa1Z6VXdTV3B2YVUxVVFYZEphWGRwV1ROV2VXTnRWblZaTTJ0cFQybEtXVmRHWjJsbVdEQSIsImNvbmRpdGlvbiI6IkdJeGQ1eGNvaGttbm5Yb2xwVHZfT3h3cHlhSF9fT2lxNDlKVHZDbzhweUEiLCJleHBpcmF0aW9uIjoiMjAyNS0wNC0xMlQxMDoxMzowNS4xNzBaIn0=",
+      "context": {
+        "cyrilResult": {
+          "participantName": "dfsp_b",
+          "currencyId": "USD",
+          "amount": "1"
+        }
+      }
+    },
+    "type": "application/json",
+    "metadata": {
+      "correlationId": "c2654596-5eff-45bf-8f40-b18933da4056",
+      "event": {
+        "type": "notification",
+        "action": "prepare",
+        "createdAt": "2025-04-12T10:12:35.187Z",
+        "state": {
+          "status": "success",
+          "code": 0,
+          "description": "action successful"
+        },
+        "id": "1b75e4d3-7dfb-446a-b8a0-dfea3cedf6bc",
+        "responseTo": "1665aaf4-3190-4cb0-beeb-c2596edc89e4"
+      },
+      "trace": {
+        "service": "cl_transfer_position",
+        "traceId": "a7a189a98d74a8de504e0f19f2301453",
+        "spanId": "e1679083ac02b427",
+        "parentSpanId": "e96552d078cac4cf",
+        "startTimestamp": "2025-04-12T10:12:37.018Z",
+        "tags": {
+          "tracestate": "acmevendor=eyJzcGFuSWQiOiJlMTY3OTA4M2FjMDJiNDI3IiwidGltZUFwaVByZXBhcmUiOiIxNzQ0NDUyNzU1MTg3In0=",
+          "transactionType": "transfer",
+          "transactionAction": "prepare",
+          "transactionId": "c2654596-5eff-45bf-8f40-b18933da4056",
+          "source": "dfsp_b",
+          "destination": "dfsp_a",
+          "payerFsp": "dfsp_b",
+          "payeeFsp": "dfsp_a",
+          "serviceName": "ml-api-adapter-service",
+          "auditType": "transactionFlow",
+          "contentType": "httpRequest",
+          "operation": "prepareTransfer",
+          "httpMethod": "post",
+          "transferId": "c2654596-5eff-45bf-8f40-b18933da4056"
+        },
+        "tracestates": {
+          "acmevendor": {
+            "spanId": "e1679083ac02b427",
+            "timeApiPrepare": "1744452755187"
+          }
+        }
+      },
+      "protocol.createdAt": 1744452757062
+    }
+  },
+  "size": 3480,
+  "key": null,
+  "topic": "topic-notification-event",
+  "offset": 983,
+  "partition": 0,
+  "timestamp": 1744452757062
+}

@@ -1,4 +1,5 @@
 {
+  "FAST_MODE_ENABLED": false,
   "API_TYPE": "fspiop",
   "HUB_PARTICIPANT": {
     "ID": 1,
