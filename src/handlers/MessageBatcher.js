@@ -1,4 +1,6 @@
+const Kafka = require('@mojaloop/central-services-stream').Util
 const uuid = require('uuid')
+const util = require('util')
 
 class MessageBatcher {
   _producer
@@ -8,8 +10,8 @@ class MessageBatcher {
   // private _transferQueue: { transfer: Transfer; resolve: () => void; reject: (error: any) => void }[] = [];
 
   // A list of messages along with promises to be shipped
+  // TODO: mutiple queues?
   _messageQueue = []
-
 
 
   constructor(producer, batchSize, batchInterval) {
@@ -42,15 +44,14 @@ class MessageBatcher {
       return
     }
 
-    const content = this._messageQueue.splice(0, this._batchSize);
-    // not sure what's needed here, need to look at the api.
-    // const batchStr = JSON.stringify(batch)
+    const batch = this._messageQueue.splice(0, this._batchSize);
+    console.log(`MessageBatcher - shipping batch of size: ${batch.length} to ${"transfer-batch-prepare"}`)
 
-    
-    // who knows what we need here!?
-    // TODO: enable compression as well
     const messageProtocol = {
-      content,
+      content: {
+        count: batch.length,
+        batch: batch.map(message => message.prepare),
+      },
       id: uuid.v4()
     }
     const topicConf = {
@@ -58,19 +59,18 @@ class MessageBatcher {
     }
     // Catch async errors explicitly so we don't accidentally miss them
     this._producer.produceMessage(messageProtocol, topicConf)
-    .catch(err => {
-      throw new Error('Unhandled error sending batch to kafka')
+    .then(() => {
+      // iterate through sent messages and resolve
+      batch.forEach(message => message.resolve())
     })
-
-    
-    // let messageProtocol = dto.prepareMessageDto({ headers, dataUri, payload, logPrefix, context, isIsoMode })
-    //     messageProtocol = await span.injectContextToMessage(messageProtocol)
-    //     const { topicConfig, kafkaConfig } = dto.producerConfigDto(Action.TRANSFER, Action.PREPARE, logPrefix)
-    
-    //     await Kafka.Producer.produceMessage(messageProtocol, topicConfig, kafkaConfig)
-
+    .catch(err => {
+      console.log(`MessageBatcher - async error producing message: ${util.inspect(err)}`)
+      batch.forEach(message => message.reject())
+    })
   }
-
 }
 
-module.exports = MessageBatcher
+// const messageBatcher = new MessageBatcher(Kafka.Producer, 4000, 100);
+const messageBatcher = new MessageBatcher(Kafka.Producer, 5, 100);
+
+module.exports = messageBatcher

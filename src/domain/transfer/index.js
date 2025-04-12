@@ -36,6 +36,7 @@ const generalEnum = require('@mojaloop/central-services-shared').Enum
 
 const { logger } = require('../../shared/logger')
 const dto = require('./dto')
+const messageBatcher = require('../../handlers/MessageBatcher')
 
 const { Action } = generalEnum.Events.Event
 
@@ -63,13 +64,10 @@ const prepare = async (headers, dataUri, payload, span, context = {}, isIsoMode)
   logger.debug(`${logPrefix}::start`, { headers, payload })
 
   try {
-    let messageProtocol = dto.prepareMessageDto({ headers, dataUri, payload, logPrefix, context, isIsoMode })
-    messageProtocol = await span.injectContextToMessage(messageProtocol)
-    const { topicConfig, kafkaConfig } = dto.producerConfigDto(Action.TRANSFER, Action.PREPARE, logPrefix)
-
-    await Kafka.Producer.produceMessage(messageProtocol, topicConfig, kafkaConfig)
-    return true
+    await messageBatcher.enqueuePrepare(payload);
   } catch (err) {
+    // TODO: we might run into a librdkafka kafka maximum message size here
+
     logger.error(`${logPrefix} failed with error:`, err)
     throw ErrorHandler.Factory.reformatFSPIOPError(err)
   }

@@ -47,6 +47,7 @@ const { logger } = require('./logger')
  */
 
 const registerPlugins = async (server, openAPIBackend) => {
+
   await server.register(OpenapiBackendValidator)
 
   await server.register({
@@ -112,7 +113,8 @@ const registerPlugins = async (server, openAPIBackend) => {
   await server.register([
     Inert,
     Vision,
-    Blipp,
+    // TODO: turn this off by default in config, super annoying
+    // Blipp,
     ErrorHandling,
     HapiRawPayload,
     HapiEventPlugin,

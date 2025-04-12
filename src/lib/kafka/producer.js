@@ -76,6 +76,40 @@ const getProducerConfigs = () => {
       generalEnum.Events.Event.Action.GET.toUpperCase()
     )
   })
+
+  // TODO: need to make changes to the shared libraries to get this working in the config
+  configs.push({
+    topicConfig: {
+      topicName: 'transfer-batch-prepare',
+      key: null,
+      partition: null,
+      opaqueKey: null
+    },
+    kafkaConfig: {
+      options: {
+        messageCharset: 'utf8' 
+      },
+      rdkafkaConf: {
+        'metadata.broker.list': 'localhost:9192',
+        'client.id': 'ml-prod-transfer-prepare',
+        event_cb: true,
+        dr_cb: true,
+        'socket.keepalive.enable': true,
+        'queue.buffering.max.messages': 10000000,
+
+        // 10 MB
+        'message.max.bytes': 1000 * 1000 * 10,
+        'linger.ms': 10,
+        'compression.type': 'lz4'
+      },
+      topicConf: { 
+        'request.required.acks': '1', 
+        partitioner: 'murmur2_random' 
+      },
+      logger: configs[0].kafkaConfig.logger,
+    }
+  })
+
   return configs
 }
 
