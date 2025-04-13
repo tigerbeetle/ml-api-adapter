@@ -172,7 +172,6 @@
               "messageCharset": "utf8"
             },
             "rdkafkaConf": {
-              "metadata.broker.list": "localhost:9192",
               "client.id": "ml-prod-transfer-get",
               "event_cb": true,
               "dr_cb": true,
