@@ -12,7 +12,7 @@ const getFileContent = (path) => {
 
 
 const stringToBool = (input) => {
-  const lowerStr = input.toLowerCase()
+  const lowerStr = `${input}`.toLowerCase()
   if (lowerStr === 'false') {
     return false
   }
@@ -87,7 +87,7 @@ const getProtocolVersions = (defaultProtocolVersions, overrideProtocolVersions) 
 
 // Set config object to be returned
 const config = {
-  FAST_MODE_ENABLED: stringToBool(RC.FAST_MODE_ENABLED),
+  FAST_MODE_ENABLED: stringToBool(defaultValue(RC.FAST_MODE_ENABLED || false)),
   DEFAULT_KAFKA_BROKER: defaultValue(RC.DEFAULT_KAFKA_BROKER, 'localhost:9192'),
   API_TYPE: RC.API_TYPE, // 'fspiop' or 'iso20022'
   IS_ISO_MODE: RC.API_TYPE === 'iso20022',
