@@ -67,7 +67,7 @@ const kafkaWithBrokerOverrides = (input, defaultBroker) => {
           && leafConfig.config.rdkafkaConf
           && !leafConfig.config.rdkafkaConf['metadata.broker.list']
         ) {
-          Logger.info(`Config kafkaWithBrokerOverrides() overriding: ${path}.config.rdkafkaConf['metadata.broker.list']`)
+          Logger.info(`Config kafkaWithBrokerOverrides() overriding: ${path}.config.rdkafkaConf['metadata.broker.list'] to ${defaultBroker}`)
           input[groupKey][key][topicKey]['config']['rdkafkaConf']['metadata.broker.list'] = defaultBroker
         }
       })
@@ -102,7 +102,6 @@ const DEFAULT_PROTOCOL_VERSION = {
 
 const defaultBroker = defaultValue(RC.KAFKA.DEFAULT_BROKER, 'localhost:9192')
 const kafka = kafkaWithBrokerOverrides(RC.KAFKA, defaultBroker)
-
 
 const getProtocolVersions = (defaultProtocolVersions, overrideProtocolVersions) => {
   const T_PROTOCOL_VERSION = {
