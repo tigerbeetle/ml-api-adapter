@@ -77,7 +77,7 @@ const getProducerConfigs = () => {
     )
   })
 
-  console.log("LD config.KAFKA.DEFAULT_BROKER is", config.KAFKA.DEFAULT_BROKER)
+  console.log("LD config.KAFKA.DEFAULT_BROKER is", Config.KAFKA.DEFAULT_BROKER)
 
   // TODO(LD): need to make changes to the shared libraries to get this working in the config
   configs.push({
