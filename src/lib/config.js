@@ -22,6 +22,14 @@ const stringToBool = (input) => {
   throw new Error(`stringToBool, invalid input: ${input}`)
 }
 
+const defaultValue = (maybeValue, dflt) => {
+  if (maybeValue === undefined) {
+    return dflt
+  }
+
+  return maybeValue
+}
+
 const DEFAULT_PROTOCOL_VERSION = {
   CONTENT: {
     DEFAULT: '1.1',
@@ -80,6 +88,7 @@ const getProtocolVersions = (defaultProtocolVersions, overrideProtocolVersions) 
 // Set config object to be returned
 const config = {
   FAST_MODE_ENABLED: stringToBool(RC.FAST_MODE_ENABLED),
+  DEFAULT_KAFKA_BROKER: defaultValue(RC.DEFAULT_KAFKA_BROKER, 'localhost:9192'),
   API_TYPE: RC.API_TYPE, // 'fspiop' or 'iso20022'
   IS_ISO_MODE: RC.API_TYPE === 'iso20022',
   PROXY: RC.PROXY_CACHE,

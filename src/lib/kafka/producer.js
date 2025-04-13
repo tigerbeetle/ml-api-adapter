@@ -31,6 +31,7 @@
 
 const KafkaUtil = require('@mojaloop/central-services-shared').Util.Kafka
 const generalEnum = require('@mojaloop/central-services-shared').Enum
+const config = require('../config')
 const Config = require('../config')
 
 const getProducerConfigs = () => {
@@ -90,7 +91,7 @@ const getProducerConfigs = () => {
         messageCharset: 'utf8' 
       },
       rdkafkaConf: {
-        'metadata.broker.list': 'localhost:9192',
+        'metadata.broker.list': config.DEFAULT_KAFKA_BROKER,
         'client.id': 'ml-prod-transfer-prepare',
         event_cb: true,
         dr_cb: true,
@@ -122,7 +123,7 @@ const getProducerConfigs = () => {
         messageCharset: 'utf8' 
       },
       rdkafkaConf: {
-        'metadata.broker.list': 'localhost:9192',
+        'metadata.broker.list': config.DEFAULT_KAFKA_BROKER,
         'client.id': 'ml-prod-transfer-fulfil',
         event_cb: true,
         dr_cb: true,
