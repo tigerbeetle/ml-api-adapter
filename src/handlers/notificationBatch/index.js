@@ -11,6 +11,7 @@ const assert = require('assert')
 const util = require('util')
 const Mustache = require('mustache')
 const path = require('path')
+const config = require('../../lib/config')
 
 
 const _validateNotificationsMessage = (message) => {
@@ -235,7 +236,7 @@ const registerHandlerNotifications = async () => {
     rdkafkaConf: {
       "client.id": "notification-batch",
       "group.id": "notification-batch",
-      "metadata.broker.list": "localhost:9192",
+      "metadata.broker.list": config.DEFAULT_KAFKA_BROKER,
       "socket.keepalive.enable": true,
       "allow.auto.create.topics": true,
       "enable.auto.commit": true,
