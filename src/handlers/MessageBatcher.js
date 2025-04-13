@@ -1,7 +1,14 @@
 const Kafka = require('@mojaloop/central-services-stream').Util
 const uuid = require('uuid')
 const util = require('util')
+const config = require('../lib/config')
 
+
+/**
+ * @class MessageBatcher
+ * @description Responsible for batching together fulfil or prepare messages to be sent in a single
+ *   Kafka Message
+ */
 class MessageBatcher {
   _producer
   _batchSizePrepare
@@ -9,6 +16,7 @@ class MessageBatcher {
   _batchSizeFulfil
   _batchIntervalFulfil
 
+  // TODO (LD): document
   // private _transferQueue: { transfer: Transfer; resolve: () => void; reject: (error: any) => void }[] = [];
 
   // A list of messages along with promises to be shipped
@@ -30,7 +38,6 @@ class MessageBatcher {
     this._timerPrepare = setInterval(() => this.flushPrepareQueue(), this._batchIntervalPrepare)
     this._timerFulfil = setInterval(() => this.flushFulfilQueue(), this._batchIntervalFulfil)
   }
-
 
   /**
    * Adds a _prepare_ message to the batcher ready to be sent. I'm trying to not
@@ -128,7 +135,12 @@ class MessageBatcher {
   }
 }
 
-// const messageBatcher = new MessageBatcher(Kafka.Producer, 4000, 100);
-const messageBatcher = new MessageBatcher(Kafka.Producer, 4000, 100, 2000, 100);
+const messageBatcher = new MessageBatcher(
+  Kafka.Producer, 
+  config.KAFKA.DEBUG_EXTREME_BATCHING_PREPARE_BATCH_SIZE,
+  config.KAFKA.DEBUG_EXTREME_BATCHING_PREPARE_LINGER_MS,
+  config.KAFKA.DEBUG_EXTREME_BATCHING_FULFIL_BATCH_SIZE,
+  config.KAFKA.DEBUG_EXTREME_BATCHING_FULFIL_LINGER_MS,
+)
 
 module.exports = messageBatcher
