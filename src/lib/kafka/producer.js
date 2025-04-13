@@ -109,6 +109,38 @@ const getProducerConfigs = () => {
       logger: configs[0].kafkaConfig.logger,
     }
   })
+  
+  configs.push({
+    topicConfig: {
+      topicName: 'transfer-batch-fulfil',
+      key: null,
+      partition: null,
+      opaqueKey: null
+    },
+    kafkaConfig: {
+      options: {
+        messageCharset: 'utf8' 
+      },
+      rdkafkaConf: {
+        'metadata.broker.list': 'localhost:9192',
+        'client.id': 'ml-prod-transfer-fulfil',
+        event_cb: true,
+        dr_cb: true,
+        'socket.keepalive.enable': true,
+        'queue.buffering.max.messages': 10000000,
+
+        // 10 MB
+        'message.max.bytes': 1000 * 1000 * 10,
+        'linger.ms': 10,
+        'compression.type': 'lz4'
+      },
+      topicConf: { 
+        'request.required.acks': '1', 
+        partitioner: 'murmur2_random' 
+      },
+      logger: configs[0].kafkaConfig.logger,
+    }
+  })
 
   return configs
 }

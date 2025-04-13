@@ -38,6 +38,7 @@ const { logger } = require('../../shared/logger')
 const dto = require('./dto')
 const config = require('../../lib/config')
 const messageBatcher = require('../../handlers/MessageBatcher')
+const assert = require('assert')
 
 
 const { Action } = generalEnum.Events.Event
@@ -119,6 +120,30 @@ const fulfil = async (headers, dataUri, payload, params, span, context = {}, isI
   }
 }
 
+const fulfilFast = async (headers, dataUri, payload, params, span, context = {}, isIsoMode) => {
+  const logPrefix = `domain::${payload.transferId ? 'transfer' : 'fxTransfer'}::prepare`
+  logger.debug(`${logPrefix}::start`, { headers, payload })
+
+  const metadata = {
+    transferId: params.ID,
+    payeeFsp: headers['fspiop-source'],
+    payerFsp: headers['fspiop-destination'],
+  }
+
+  assert(metadata.transferId)
+  assert(metadata.payeeFsp)
+  assert(metadata.payerFsp)
+
+  try {
+    await messageBatcher.enqueueFulfil(payload, metadata);
+  } catch (err) {
+    // TODO: we might run into a librdkafka kafka maximum message size here
+
+    logger.error(`${logPrefix} failed with error:`, err)
+    throw ErrorHandler.Factory.reformatFSPIOPError(err)
+  }
+}
+
 /**
  * @function byId
  * @async
@@ -179,7 +204,7 @@ const transferError = async (headers, dataUri, payload, params, span, isFx = fal
 }
 
 module.exports = {
-  fulfil,
+  fulfil: config.FAST_MODE_ENABLED ? fulfilFast : fulfil,
   getTransferById,
   prepare: config.FAST_MODE_ENABLED ? prepareFast : prepare,
   transferError

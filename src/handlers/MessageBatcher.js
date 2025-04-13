@@ -4,23 +4,31 @@ const util = require('util')
 
 class MessageBatcher {
   _producer
-  _batchSize
-  _batchInterval
+  _batchSizePrepare
+  _batchIntervalPrepare
+  _batchSizeFulfil
+  _batchIntervalFulfil
 
   // private _transferQueue: { transfer: Transfer; resolve: () => void; reject: (error: any) => void }[] = [];
 
   // A list of messages along with promises to be shipped
-  // TODO: mutiple queues?
-  _messageQueue = []
+  _prepareQueue = []
+  _fulfilQueue = []
+  
+  _timerPrepare
+  _timerFulfil
 
 
-  constructor(producer, batchSize, batchInterval) {
+  constructor(producer, batchSizePrepare, batchIntervalPrepare, batchSizeFulfil, batchIntervalFulfil) {
     this._producer = producer
-    this._batchSize = batchSize
-    this._batchInterval = batchInterval
+    this._batchSizePrepare = batchSizePrepare
+    this._batchIntervalPrepare = batchIntervalPrepare
+    this._batchSizeFulfil = batchSizeFulfil
+    this._batchIntervalFulfil = batchIntervalFulfil
 
     // Send off the batches in an event loop or something
-    this._timer = setInterval(() => this.flushQueue(), this._batchInterval)
+    this._timerPrepare = setInterval(() => this.flushPrepareQueue(), this._batchIntervalPrepare)
+    this._timerFulfil = setInterval(() => this.flushFulfilQueue(), this._batchIntervalFulfil)
   }
 
 
@@ -30,21 +38,39 @@ class MessageBatcher {
    */
   async enqueuePrepare(prepare) {
     return new Promise((resolve, reject) => {
-      this._messageQueue.push({prepare, resolve, reject})
+      this._prepareQueue.push({prepare, resolve, reject})
 
-      if (this._messageQueue.length >= this.batchSize) {
-        this.flushQueue()
+      if (this._prepareQueue.length >= this._batchSizePrepare) {
+        this.flushPrepareQueue()
+      }
+    })
+  }
+  
+  /**
+   * 
+   * @param {*} fulfil 
+   * @param {*} metadata 
+   * @param {string} metadata.transferId
+   * @param {string} metadata.payerFsp
+   * @param {string} metadata.payerFsp
+   * @returns 
+   */
+  async enqueueFulfil(fulfil, metadata) {
+    return new Promise((resolve, reject) => {
+      this._fulfilQueue.push({fulfil, metadata, resolve, reject})
+
+      if (this._fulfilQueue.length >= this._batchSizeFulfil) {
+        this.flushFulfilQueue()
       }
     })
   }
 
-
-  flushQueue() {
-    if (this._messageQueue.length === 0) {
+  flushPrepareQueue() {
+    if (this._prepareQueue.length === 0) {
       return
     }
 
-    const batch = this._messageQueue.splice(0, this._batchSize);
+    const batch = this._prepareQueue.splice(0, this._batchSizePrepare);
     console.log(`MessageBatcher - shipping batch of size: ${batch.length} to ${"transfer-batch-prepare"}`)
 
     const messageProtocol = {
@@ -68,9 +94,41 @@ class MessageBatcher {
       batch.forEach(message => message.reject())
     })
   }
+
+  flushFulfilQueue() {
+    if (this._fulfilQueue.length === 0) {
+      return
+    }
+
+    const batch = this._fulfilQueue.splice(0, this._batchSizeFulfil);
+    console.log(`MessageBatcher - shipping batch of size: ${batch.length} to ${"transfer-batch-fulfil"}`)
+
+    // TODO: need to handle this differently to prepares
+    const messageProtocol = {
+      content: {
+        count: batch.length,
+        batch: batch.map(message => message.fulfil),
+        metadata: batch.map(message => message.metadata),
+      },
+      id: uuid.v4()
+    }
+    const topicConf = {
+      topicName: 'transfer-batch-fulfil'
+    }
+    // Catch async errors explicitly so we don't accidentally miss them
+    this._producer.produceMessage(messageProtocol, topicConf)
+    .then(() => {
+      // iterate through sent messages and resolve
+      batch.forEach(message => message.resolve())
+    })
+    .catch(err => {
+      console.log(`MessageBatcher - async error producing message: ${util.inspect(err)}`)
+      batch.forEach(message => message.reject())
+    })
+  }
 }
 
 // const messageBatcher = new MessageBatcher(Kafka.Producer, 4000, 100);
-const messageBatcher = new MessageBatcher(Kafka.Producer, 5, 100);
+const messageBatcher = new MessageBatcher(Kafka.Producer, 5, 100, 5, 100);
 
 module.exports = messageBatcher
