@@ -129,6 +129,6 @@ class MessageBatcher {
 }
 
 // const messageBatcher = new MessageBatcher(Kafka.Producer, 4000, 100);
-const messageBatcher = new MessageBatcher(Kafka.Producer, 5, 100, 5, 100);
+const messageBatcher = new MessageBatcher(Kafka.Producer, 4000, 100, 2000, 100);
 
 module.exports = messageBatcher

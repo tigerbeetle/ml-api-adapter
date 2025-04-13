@@ -20,7 +20,6 @@ const stringToBool = (input) => {
     return true
   }
   throw new Error(`stringToBool, invalid input: ${input}`)
-
 }
 
 const DEFAULT_PROTOCOL_VERSION = {
