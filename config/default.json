@@ -1,5 +1,4 @@
 {
-  "FAST_MODE_ENABLED": false,
   "API_TYPE": "fspiop",
   "HUB_PARTICIPANT": {
     "ID": 1,
@@ -94,6 +93,8 @@
     }
   },
   "KAFKA": {
+    "DEBUG_EXTREME_BATCHING": false,
+    "DEFAULT_BROKER": "localhost:9192",
     "TOPIC_TEMPLATES": {
       "GENERAL_TOPIC_TEMPLATE": {
         "TEMPLATE": "topic-{{functionality}}-{{action}}",
@@ -117,7 +118,6 @@
             "rdkafkaConf": {
               "client.id": "ml-con-notification-event",
               "group.id": "ml-group-notification-event",
-              "metadata.broker.list": "localhost:9192",
               "socket.keepalive.enable": true,
               "allow.auto.create.topics": true
             },
@@ -136,7 +136,6 @@
               "messageCharset": "utf8"
             },
             "rdkafkaConf": {
-              "metadata.broker.list": "localhost:9192",
               "client.id": "ml-prod-transfer-prepare",
               "event_cb": true,
               "dr_cb": true,
@@ -155,7 +154,6 @@
               "messageCharset": "utf8"
             },
             "rdkafkaConf": {
-              "metadata.broker.list": "localhost:9192",
               "client.id": "ml-prod-transfer-fulfil",
               "event_cb": true,
               "dr_cb": true,

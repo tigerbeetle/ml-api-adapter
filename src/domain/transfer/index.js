@@ -204,8 +204,8 @@ const transferError = async (headers, dataUri, payload, params, span, isFx = fal
 }
 
 module.exports = {
-  fulfil: config.FAST_MODE_ENABLED ? fulfilFast : fulfil,
+  fulfil: config.KAFKA.DEBUG_EXTREME_BATCHING ? fulfilFast : fulfil,
   getTransferById,
-  prepare: config.FAST_MODE_ENABLED ? prepareFast : prepare,
+  prepare: config.KAFKA.DEBUG_EXTREME_BATCHING ? prepareFast : prepare,
   transferError
 }

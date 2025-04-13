@@ -236,7 +236,7 @@ const registerHandlerNotifications = async () => {
     rdkafkaConf: {
       "client.id": "notification-batch",
       "group.id": "notification-batch",
-      "metadata.broker.list": config.DEFAULT_KAFKA_BROKER,
+      "metadata.broker.list": config.KAFKA.DEFAULT_BROKER,
       "socket.keepalive.enable": true,
       "allow.auto.create.topics": true,
       "enable.auto.commit": true,

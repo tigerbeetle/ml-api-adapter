@@ -91,8 +91,8 @@ const createServer = async (port, api, routes, modules) => {
   await server.register(modules)
   server.route(routes)
 
-  if (Config.FAST_MODE_ENABLED === true) {
-    Logger.warn(`FAST_MODE_ENABLED=true! Using new batching logic.`)
+  if (Config.KAFKA.DEBUG_EXTREME_BATCHING === true) {
+    Logger.warn(`KAFKA.DEBUG_EXTREME_BATCHING=true Using new batching logic.`)
   }
 
   await server.start()

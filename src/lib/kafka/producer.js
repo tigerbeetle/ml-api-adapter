@@ -78,7 +78,7 @@ const getProducerConfigs = () => {
     )
   })
 
-  // TODO: need to make changes to the shared libraries to get this working in the config
+  // TODO(LD): need to make changes to the shared libraries to get this working in the config
   configs.push({
     topicConfig: {
       topicName: 'transfer-batch-prepare',
@@ -91,7 +91,7 @@ const getProducerConfigs = () => {
         messageCharset: 'utf8' 
       },
       rdkafkaConf: {
-        'metadata.broker.list': config.DEFAULT_KAFKA_BROKER,
+        'metadata.broker.list': config.KAFKA.DEFAULT_BROKER,
         'client.id': 'ml-prod-transfer-prepare',
         event_cb: true,
         dr_cb: true,
@@ -123,7 +123,7 @@ const getProducerConfigs = () => {
         messageCharset: 'utf8' 
       },
       rdkafkaConf: {
-        'metadata.broker.list': config.DEFAULT_KAFKA_BROKER,
+        'metadata.broker.list': config.KAFKA.DEFAULT_BROKER,
         'client.id': 'ml-prod-transfer-fulfil',
         event_cb: true,
         dr_cb: true,
