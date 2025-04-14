@@ -1,4 +1,6 @@
 const Kafka = require('@mojaloop/central-services-stream').Util
+const Logger = require('@mojaloop/central-services-logger')
+
 const uuid = require('uuid')
 const util = require('util')
 const config = require('../lib/config')
@@ -33,6 +35,9 @@ class MessageBatcher {
     this._batchIntervalPrepare = batchIntervalPrepare
     this._batchSizeFulfil = batchSizeFulfil
     this._batchIntervalFulfil = batchIntervalFulfil
+
+    Logger.warn(`MessageBatcher.constructor() - batchSizePrepare:${this._batchSizePrepare} batchIntervalPrepare: ${this._batchIntervalPrepare}`)
+    Logger.warn(`MessageBatcher.constructor() - batchSizeFulfil:${this._batchSizeFulfil} batchIntervalFulfil: ${this._batchIntervalFulfil}`)
 
     // Send off the batches in an event loop or something
     this._timerPrepare = setInterval(() => this.flushPrepareQueue(), this._batchIntervalPrepare)
