@@ -12,6 +12,9 @@ const util = require('util')
 const Mustache = require('mustache')
 const path = require('path')
 const config = require('../../lib/config')
+const RetryableRequest = require('./RetryableRequest')
+
+const retryableRequest = new RetryableRequest(5, 10)
 
 
 const _validateNotificationsMessage = (message) => {
@@ -59,7 +62,7 @@ const handleNotifications = async (error, messages) => {
   const metadata = message.value.content.metadata
 
   console.log(`LD handleNotifications, handling batch of`, message.value.content.count)
-  console.log(`LD handleNotifications, handling batch with id:`, message.value.id)
+  // console.log(`LD handleNotifications, handling batch with id:`, message.value.id)
 
   const eventType = message.value.metadata.event.type
   const eventAction = message.value.metadata.event.action
@@ -146,7 +149,7 @@ const _forwardPostTransfersNotification = async (payload, endpointMap) => {
   const url = endpointMap[payload.payeeFsp];
   assert(url)
 
-  const response = await Util.Request.sendRequest({
+  await retryableRequest.sendRequest({
     apiType: Config.API_TYPE,
     url,
     headers,
@@ -186,8 +189,7 @@ const _forwardPutTransfersNotification = async (payload, metadata, endpointMap) 
   // TODO: I don't know the canonical way to build this url
   // TODO: handle double `//` without breaking `http://`
   const url = `${baseUrl}${metadata.transferId}`
-
-  const response = await Util.Request.sendRequest({
+  await retryableRequest.sendRequest({
     apiType: Config.API_TYPE,
     url,
     headers,

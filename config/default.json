@@ -93,7 +93,7 @@
     }
   },
   "KAFKA": {
-    "DEBUG_EXTREME_BATCHING": false,
+    "DEBUG_EXTREME_BATCHING": true,
     "DEFAULT_BROKER": "localhost:9192",
     "TOPIC_TEMPLATES": {
       "GENERAL_TOPIC_TEMPLATE": {
