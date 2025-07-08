@@ -112,7 +112,8 @@ const registerPlugins = async (server, openAPIBackend) => {
   await server.register([
     Inert,
     Vision,
-    Blipp,
+    // TODO(LD): add an option to configure this
+    // Blipp,
     ErrorHandling,
     HapiRawPayload,
     HapiEventPlugin,
