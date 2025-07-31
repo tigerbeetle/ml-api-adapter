@@ -1,3 +1,3 @@
-import server from './server'
+const server = require('./server')
 
-export default server.run();
+module.exports = server.run()

@@ -56,4 +56,4 @@ const server = {
   }
 }
 
-export default server
+module.exports = server

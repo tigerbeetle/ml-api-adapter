@@ -184,7 +184,8 @@ const consumeMessage = async (error, message) => {
         const result = await processMessage(msg, span).catch(err => {
           const errMessage = 'Error processing notification message'
           const fspiopError = ErrorHandler.Factory.createInternalServerFSPIOPError(errMessage, err)
-          logger.error(errMessage, fspiopError)
+          // TODO(LD): Disabled this log as it's quire verbose
+          // logger.error(errMessage, fspiopError)
           if (!autoCommitEnabled) {
             notificationConsumer.commitMessageSync(msg)
           }
@@ -383,7 +384,8 @@ const processMessage = async (msg, span) => {
       injectAuditQueryTags({ span, action, id, url: callbackURLTo, method: POST, isFx, serviceName, ...(isFx ? { additionalTags: { determiningTransferId: fspiopObject.determiningTransferId } } : {}) })
       response = await Callback.sendRequest({ apiType: API_TYPE, url: callbackURLTo, headers, source, destination, method: POST, payload, responseType, span, protocolVersions, hubNameRegex })
     } catch (err) {
-      logger.error(err)
+      // TODO(LD): Very noisy log here
+      // logger.error(err)
       histTimerEndSendRequest({ success: false, from: source, dest: destination, action, status: response.status })
       histTimerEnd({ success: false, action })
       throw err
